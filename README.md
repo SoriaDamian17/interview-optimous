@@ -1,18 +1,20 @@
 ## Tabla de contenidos
-- [Estructura del proyecto](#Estructura-del-proyecto)
-- [Funcionalidades del template](#funcionalidades-del-template)
-- [Entorno](#entorno)
-- [Instalación](#instalación)
-- [Desarrollo](#desarrollo)
-    - [Run App](#run-app)
-    - [Lint](#lint)
-    - [Testing](#testing)
-    - [Actualizar el package.json](#actualizar-el-package.json)
-    - [Git commit](#git-commit)
-    - [Stubs](#stubs)
-      - [Como agregar mocks](#como-agregar-mocks)
+
+-   [Estructura del proyecto](#Estructura-del-proyecto)
+-   [Funcionalidades del template](#funcionalidades-del-template)
+-   [Entorno](#entorno)
+-   [Instalación](#instalación)
+-   [Desarrollo](#desarrollo)
+    -   [Run App](#run-app)
+    -   [Lint](#lint)
+    -   [Testing](#testing)
+    -   [Actualizar el package.json](#actualizar-el-package.json)
+    -   [Git commit](#git-commit)
+    -   [Stubs](#stubs)
+        -   [Como agregar mocks](#como-agregar-mocks)
 
 # Estructura del proyecto
+
 ```
 build/                        compiled version
 docs/                        project docs and coding guides
@@ -26,9 +28,9 @@ coverage/                    test and coverage reports
 
 ## Entorno
 
-- [nodejs](https://nodejs.org/) (testeado con 12 y 14)
-- [npm](https://www.npmjs.com) (version 6.4.1 o superior)
-- [nest](https://nestjs.com/) (version 7.6.13)
+-   [nodejs](https://nodejs.org/) (testeado con 12 y 14)
+-   [npm](https://www.npmjs.com) (version 6.4.1 o superior)
+-   [nest](https://nestjs.com/) (version 7.6.13)
 
 ---
 
@@ -37,12 +39,17 @@ coverage/                    test and coverage reports
 ```bash
 $ npm install
 ```
+
 Luego generar el archivo `.env` en base de `.env.example`
+
 ```bash
 # si tenes linux podes usar esto
 $ sh env-create.sh
 ```
+
 Y luego reemplazar las siguiente variables:
-  - ***APP_PORT***: Indicar el puerto que deseas, por defecto es 3000.
-  - ***NODE_ENV***: production|development|staging|etc
+
+-   **_APP_PORT_**: Indicar el puerto que deseas, por defecto es 3000.
+-   **_NODE_ENV_**: production|development|staging|etc
+
 ---

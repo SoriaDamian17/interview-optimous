@@ -16,17 +16,13 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "react-hooks",
-        "@typescript-eslint"
-    ],
+    "plugins": ["react", "react-hooks", "@typescript-eslint"],
     "rules": {
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": ["error"],
-        "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ],
+        "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
         "import/extensions": [
             "error",
             "ignorePackages",
