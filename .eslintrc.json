@@ -18,6 +18,9 @@
     },
     "plugins": ["react", "react-hooks", "@typescript-eslint"],
     "rules": {
+        "indent": "off",
+        "linebreak-style": [0, "error", "windows"],
+        
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
         "no-shadow": "off",
@@ -31,16 +34,12 @@
                 "tsx": "never"
             }
         ],
-        "@typescript-eslint/explicit-function-return-type": [
-            "error",
-            {
-                "allowExpressions": true
-            }
-        ],
+        "@typescript-eslint/explicit-function-return-type": "off",
         "max-len": ["warn", { "code": 80 }],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "import/prefer-default-export": "off",
+        "no-undef-init": "error",
         "react/prop-types": "off"
     },
     "settings": {
