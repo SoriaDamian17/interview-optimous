@@ -16,7 +16,6 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
-
 export {
-    GlobalStyles
-}
+    GlobalStyles,
+};
