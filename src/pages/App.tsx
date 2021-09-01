@@ -9,7 +9,6 @@ const App:React.FC = ():JSX.Element => (
   <Suspense fallback={<Spinner />}>
     <Router>
       <Switch>
-        <Route component={NotFound} />
         {routes.map(({ path, element }) => (
           <Route
             key={path}
@@ -18,6 +17,7 @@ const App:React.FC = ():JSX.Element => (
             render={() => element}
           />
                 ))}
+        <Route component={NotFound} />
       </Switch>
     </Router>
   </Suspense>
