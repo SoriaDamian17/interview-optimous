@@ -1,11 +1,13 @@
+// import DemoPage from './pages/demo';
+
 import React from 'react';
 
-const DemoPage = React.lazy(() => import('./pages/DemoPage'));
+const DemoPage = React.lazy(() => import('./pages/demo'));
 
 const routes = [
     {
-        component: <DemoPage />,
-        path: 'file-storage',
+        path: '/',
+        element: <DemoPage />,
     },
 ];
 
