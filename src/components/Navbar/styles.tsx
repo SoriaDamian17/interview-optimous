@@ -12,6 +12,9 @@ const Nav = styled(MenuList)`
 const NavItem = styled(MenuItem)`
     text-decoration: none;
     color:#fff;
+    .active {
+        color: red;
+    }
 `;
 
 const LinkItem = styled(Link)`

@@ -4,7 +4,7 @@ export interface DemoPageProps {
     title?: string
 }
 
-const DemoPage: React.FC<DemoPageProps> = () => (
+const DemoPage: React.FC<DemoPageProps> = ():JSX.Element => (
   <Layout title="Demo Page">
     <div>Hola Demo Page</div>
   </Layout>
