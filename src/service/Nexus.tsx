@@ -2,6 +2,7 @@ import { axiosBase } from '.';
 
 const headers = {
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
     Accept: 'application/json',
     Authorization: `Bearer ${localStorage.NXtoken}`,
 };
