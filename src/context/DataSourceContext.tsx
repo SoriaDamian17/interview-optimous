@@ -1,24 +1,26 @@
 import React, {
     createContext, useState, useEffect, ReactNode,
 } from 'react';
+import { stubDataSource } from '../utils/mockData';
 
+export interface IDataParameters {
+    id?: number;
+    name: string;
+    type: string;
+    // eslint-disable-next-line camelcase
+    default_value: string;
+}
 export interface IDataSource {
-    id: number;
+    id?: number;
     // eslint-disable-next-line camelcase
     connection_id: number;
     title: string;
     code: string;
     query: string;
-    system: boolean;
-    created: string;
-    modified: string;
-    parameters: {
-        id: number;
-        name: string;
-        type: string;
-        // eslint-disable-next-line camelcase
-        default_value: string;
-    }[]
+    system?: boolean;
+    created?: string;
+    modified?: string;
+    parameters: IDataParameters[]
 }
 
 interface ICProvider {
@@ -38,7 +40,7 @@ export const DataSourceContext = createContext<IDContext>(defaultValue);
 
 const DataSourceContextProvider:React.FC<ICProvider> = ({ children }) => {
     // const InitialState: IDataSource[] = JSON.parse(localStorage.getItem('datasource')) || [];
-    const InitialState: IDataSource[] = [];
+    const InitialState: IDataSource[] = stubDataSource;
     const [datasource, setDataSource] = useState<IDataSource[]>(InitialState);
 
     useEffect(() => {

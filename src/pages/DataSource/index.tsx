@@ -8,18 +8,33 @@ import {
  Header, Subheader, Subtitle, Title,
  Button,
 } from '../../shared/styles';
-import { TextField } from './styles';
+import { ButtonSubmit, TextField } from './styles';
 import DialogUI from '../../components/Dialog';
 import { ConnectionContext, ICContext, IConnection } from '../../context/ConnectionContext';
+import { DataSourceContext, IDContext } from '../../context/DataSourceContext';
+import { IBodyConnection, IBodyDataSource } from '../../service/Nexus';
 
-export interface IDataSourceProps {
-title?: string;
+interface IOption {
+  value: string | number | undefined,
+  label: string,
 }
 
 type Inputs = {
-  inputConnection: string,
+  inputTitle: string,
+  inputCode: string,
+  inputQuery: string,
+  inputConnectionId: number,
+  // Input Params
+  inputParamName: string,
+  inputParamDefault: string,
   isRequired: string,
 };
+
+type InputsConnection = {
+  // Dialog Connection
+  inputConnection: string,
+  isRequired: string,
+}
 
 const typeParams = [
   {
@@ -36,40 +51,84 @@ const typeParams = [
   },
 ];
 
-const DataSource: React.FC<IDataSourceProps> = ():JSX.Element => {
+function formatData(rows:IConnection[]) {
+  const options:IOption[] = [];
+  rows.map((r:IConnection) => options.push({
+      value: r.id,
+      label: r.title,
+    }));
+}
+
+const DataSource: React.FC = ():JSX.Element => {
+  const { datasource, setDataSource } = useContext<IDContext>(DataSourceContext);
   const { connections, setConnections } = useContext<ICContext>(ConnectionContext);
   const [open, setOpen] = useState<boolean>(false);
   const [paramType, setParamType] = useState<string>('String');
+  const {
+    handleSubmit, register, formState: { errors },
+  } = useForm<Inputs>();
+  const {
+    handleSubmit: handleSubmit2, register: register2,
+  } = useForm<InputsConnection>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
     const {
-      handleSubmit, register,
-    } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-    const onSubmitConnection: SubmitHandler<Inputs> = (data) => {
-      console.log(data);
-      const newConnect:IConnection = {
-        title: data.inputConnection,
-        type: 'SQL',
-        connectionData: 'Server=serverNameTest;Database=databaseName;UserId=userIdTest;Password=passwordTest;Port=portTest',
-      };
-      setConnections((prev) => [...prev, newConnect]);
-      setOpen(!open);
+      inputTitle, inputCode, inputQuery, inputConnectionId,
+      inputParamName, inputParamDefault,
+    } = data;
+    const newDataSource:IBodyDataSource = {
+      title: inputTitle,
+      code: inputCode,
+      query: inputQuery,
+      connection_id: inputConnectionId,
+      parameters: [
+        {
+          name: inputParamName,
+          type: 'string',
+          default_value: inputParamDefault,
+        },
+      ],
     };
+    // NexusApi.post('data-sources', newDataSource).then((resp) => {
+    //   console.log(resp);
+    // });
+    setDataSource((prev) => [...prev, newDataSource]);
+  };
 
-    const handleParameters = () => {
-      console.log('parameters');
+  const onSubmitConnection: SubmitHandler<InputsConnection> = (data) => {
+    console.log(data);
+    const { inputConnection } = data;
+    const newConnect:IBodyConnection = {
+      title: inputConnection,
+      type: 'SQL',
+      connection_data: 'Server=serverNameTest;Database=databaseName;UserId=userIdTest;Password=passwordTest;Port=portTest',
     };
+    // NexusApi.post('connections', newConnect).then((resp) => {
+    //   // const { data }:IDataSource[] = resp;
+    //   // setDataSource(data);
+    //   console.log(resp);
+    // });
+    setConnections((prev) => [...prev, newConnect]);
+    setOpen(!open);
+  };
 
-    const handleChange = (ev:any) => {
-      setParamType(ev.target.value);
-    };
+  const handleParameters = () => {
+    console.log('parameters');
+  };
 
-    const handleDelete = () => {
-      console.log('delete params');
-    };
+  const handleChange = (ev:any) => {
+    setParamType(ev.target.value);
+  };
 
-    useEffect(() => {
-      console.log(connections);
-    }, [connections]);
+  const handleDelete = () => {
+    console.log('delete params');
+  };
+
+  useEffect(() => {
+    console.log(datasource);
+    console.log(connections);
+    console.log(errors);
+  }, [connections, datasource]);
+
   return (
     <Layout title="New Data Source">
       <Header>
@@ -85,10 +144,9 @@ const DataSource: React.FC<IDataSourceProps> = ():JSX.Element => {
               fullWidth
               id="title"
               label="Title"
-              name="title"
               type="text"
-              // InputLabelProps={{ shrink: true }}
               variant="outlined"
+              {...register('inputTitle', { required: true })}
             />
           </Grid>
           <Grid item xs={4}>
@@ -96,34 +154,41 @@ const DataSource: React.FC<IDataSourceProps> = ():JSX.Element => {
               fullWidth
               id="code"
               label="Code"
-              name="code"
               type="text"
-              // InputLabelProps={{ shrink: true }}
               variant="outlined"
+              {...register('inputCode', { required: true })}
             />
           </Grid>
           <Grid item xs={4}>
             <TextField
-              fullWidth
-              id="code"
-              label="Code"
-              name="code"
-              type="text"
-              // InputLabelProps={{ shrink: true }}
+              id="select-connection"
+              select
+              label="Type"
+              className="select-control"
+              value={formatData(connections)}
+              SelectProps={{
+                native: true,
+              }}
               variant="outlined"
-            />
+              {...register('inputConnectionId')}
+            >
+              {connections.map((option:IConnection) => (
+                <option key={option.title} value={option.title}>
+                  {option.title}
+                </option>
+          ))}
+            </TextField>
           </Grid>
           <Grid item xs={12}>
             <TextField
               fullWidth
               id="query"
               label="Query"
-              name="query"
               type="text"
               multiline
               rows={6}
-              // InputLabelProps={{ shrink: true }}
               variant="outlined"
+              {...register('inputQuery', { required: true })}
             />
           </Grid>
           <Grid item xs={12}>
@@ -139,15 +204,14 @@ const DataSource: React.FC<IDataSourceProps> = ():JSX.Element => {
               fullWidth
               id="param_name"
               label="Name"
-              name="Param_name"
               type="text"
-              // InputLabelProps={{ shrink: true }}
               variant="outlined"
+              {...register('inputParamName', { required: true })}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <TextField
-              id="filled-select-currency-native"
+              id="select-type-params"
               select
               label="Type"
               className="select-control"
@@ -158,7 +222,7 @@ const DataSource: React.FC<IDataSourceProps> = ():JSX.Element => {
               }}
               variant="outlined"
             >
-              {typeParams.map((option) => (
+              {typeParams.map((option:IOption) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
@@ -170,26 +234,25 @@ const DataSource: React.FC<IDataSourceProps> = ():JSX.Element => {
               fullWidth
               id="default_value"
               label="Default Value"
-              name="default_value"
               type="text"
-              // InputLabelProps={{ shrink: true }}
               variant="outlined"
+              {...register('inputParamDefault', { required: false })}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={1}>
             <Tooltip title="Delet Param">
               <IconButton aria-label="delete" onClick={() => handleDelete()}>
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
           </Grid>
-          <Grid item xs={12} direction="row" justifyContent="flex-end">
-            <Button type="submit">Save</Button>
+          <Grid item xs={12} justifyContent="flex-end">
+            <ButtonSubmit type="submit">Save</ButtonSubmit>
           </Grid>
         </Grid>
       </form>
       <DialogUI title="Create new connection" open={open} onClose={setOpen}>
-        <form autoComplete="off" onSubmit={handleSubmit(onSubmitConnection)}>
+        <form autoComplete="off" onSubmit={handleSubmit2(onSubmitConnection)}>
           <Grid container alignItems="center">
             <Grid item xs={12}>
               <TextField
@@ -197,9 +260,8 @@ const DataSource: React.FC<IDataSourceProps> = ():JSX.Element => {
                 id="connectionName"
                 label="Name"
                 type="text"
-              // InputLabelProps={{ shrink: true }}
                 variant="outlined"
-                {...register('inputConnection', { required: true })}
+                {...register2('inputConnection', { required: true })}
               />
             </Grid>
             <Grid item xs={12}>
