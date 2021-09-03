@@ -7,15 +7,18 @@ import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 import { GlobalStyles, theme } from './shared/styles';
 import ConnectionContextProvider from './context/ConnectionContext';
+import DataSourceContextProvider from './context/DataSourceContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
       <GlobalStyles />
       <HelmetProvider>
-        <ConnectionContextProvider>
-          <App />
-        </ConnectionContextProvider>
+        <DataSourceContextProvider>
+          <ConnectionContextProvider>
+            <App />
+          </ConnectionContextProvider>
+        </DataSourceContextProvider>
       </HelmetProvider>
     </MuiThemeProvider>
   </React.StrictMode>,

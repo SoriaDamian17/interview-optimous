@@ -11,7 +11,7 @@ const NavBar:React.FC = ():JSX.Element => {
       <Nav>
         <NavItem>
           <LinkItem to="/">
-            <Logo width={50} height={50} />
+            <Logo width={30} height={30} />
           </LinkItem>
         </NavItem>
         <NavItem>
