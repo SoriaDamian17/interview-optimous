@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { createTheme } from '@material-ui/core/styles';
+import { Button as BMT } from '@material-ui/core';
 
 export const colors = {
   white: 'rgb(255,255,255)',
@@ -96,10 +97,22 @@ const Subtitle = styled.h2`
     padding: 0 1rem 0 0;
 `;
 
+const Button = styled(BMT)`
+    height: 3rem;
+    color:${colors.white}!important;
+    background-color:${colors.lightgreen} !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+    &:hover {
+        background-color:${colors.green} !important;
+    }
+`;
+
 export {
     GlobalStyles,
     Title,
     Subtitle,
     Header,
     Subheader,
+    Button,
 };

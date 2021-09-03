@@ -6,13 +6,16 @@ import App from './pages/App';
 
 import reportWebVitals from './reportWebVitals';
 import { GlobalStyles, theme } from './shared/styles';
+import ConnectionContextProvider from './context/ConnectionContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
       <GlobalStyles />
       <HelmetProvider>
-        <App />
+        <ConnectionContextProvider>
+          <App />
+        </ConnectionContextProvider>
       </HelmetProvider>
     </MuiThemeProvider>
   </React.StrictMode>,
