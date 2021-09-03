@@ -1,8 +1,8 @@
 import { useHistory } from 'react-router';
 import Layout from '../../components/Layout';
-import { Title } from '../../shared/styles';
+import { Header, Title, Button } from '../../shared/styles';
 import BasicTable from './dTable';
-import { Paper, Button, Header } from './styles';
+import { Paper } from './styles';
 
 export interface HomeProps {
     title?: string

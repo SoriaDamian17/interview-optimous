@@ -14,7 +14,7 @@ export interface IBody {
     query: string
 }
 
-const DataSourceApi = {
+const NexusApi = {
     get: (url:string) => axiosBase.get(`/catalogs/${url}`, {
             headers,
         }),
@@ -26,4 +26,4 @@ const DataSourceApi = {
     }),
 };
 
-export { DataSourceApi };
+export { NexusApi };

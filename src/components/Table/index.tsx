@@ -1,8 +1,8 @@
-import {
+/*import {
     TableBody,
  TableCell, TableHead, TablePagination, TableRow,
 } from '@material-ui/core';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import TablePaginationActions from './pagination';
 import { TableContainer, Table } from './styles';
 
@@ -27,13 +27,12 @@ const TableUI: React.FC<ITableProps> = ({
     const [rowsPerPage, setRowsPerPage] = useState<number>(pagination ? 15 : rowsData.length);
     const rowsPerPageOptions = rowsData.length > rowsPerPage ? [15, 25, 50, 75, { label: 'All', value: -1 }] : { label: 'All', value: -1 };
 
-    const handleChangePage = (event:MouseEvent, newPage:number) => {
+    const handleChangePage = (event:ChangeEvent<HTMLButtonElement>, newPage:number) => {
         setPage(newPage);
     };
 
-    const handleChangeRowsPerPage = () => {
-        setRowsPerPage(0);
-        // setRowsPerPage(parseInt(event.target.value, 10));
+    const handleChangeRowsPerPage = (event:ChangeEvent<HTMLButtonElement>) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
 
@@ -43,16 +42,7 @@ const TableUI: React.FC<ITableProps> = ({
           <Table size="small" aria-label="custom pagination table">
             <TableHead>
               <TableRow>
-                {/* {columnDefs.map((column) => (
-                  <TableCell
-                    component="th"
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth, width: column.width }}
-                  >
-                    <strong>{column.name}</strong>
-                  </TableCell>
-                      ))} */}
+                
                 <TableCell
                   component="th"
                   key="Actions"
@@ -64,27 +54,9 @@ const TableUI: React.FC<ITableProps> = ({
             <TableBody />
           </Table>
         </TableContainer>
-        {/* {pagination
-          && (
-          <TablePagination
-            key="pagination"
-            rowsPerPageOptions={rowsPerPageOptions}
-            component="div"
-            count={rowsData.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            labelRowsPerPage="Por página"
-            SelectProps={{
-              inputProps: { 'aria-label': 'Por página' },
-              native: true,
-          }}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-            ActionsComponent={TablePaginationActions}
-          />
-        )} */}
       </>
     );
-};
+};*/
 
+const TableUI = () => <div></div>;
 export default TableUI;
