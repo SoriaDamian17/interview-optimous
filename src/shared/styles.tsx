@@ -1,13 +1,11 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import { createTheme } from '@material-ui/core/styles';
 
 export const colors = {
-  red: 'rgb(239, 56, 41)',
-  lightRed: 'rgb(242, 222, 222)',
-  error: 'rgb(183, 32, 46)',
-  grey: 'rgb(133, 133, 133)',
-  bgGrey: 'rgb(238, 238, 238)',
+  white: 'rgb(255,255,255)',
+  lightgreen: 'rgb(0, 171, 85)',
+  green: 'rgb(0, 123, 85)',
   ligthGrey: 'rgba(250, 250, 250, 0.3)',
   ligtherGrey: 'rgb(238, 238, 238)',
 };
@@ -32,14 +30,6 @@ export const theme = createTheme({
     MuiFormControl: {
       marginDense: {
         marginBottom: '18px',
-      },
-    },
-    MuiInputLabel: {
-      // change the color of the label of inputs on focus
-      root: {
-        '&$focused': {
-          color: `${colors.grey} !important`,
-        },
       },
     },
     MuiInput: {
@@ -77,6 +67,13 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
+const Title = styled.h1`
+    font-family: 'Roboto';
+    font-size: 2.5rem;
+    font-weight: bold;
+`;
+
 export {
     GlobalStyles,
+    Title,
 };

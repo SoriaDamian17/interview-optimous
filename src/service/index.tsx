@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosBase = axios.create({
-    baseURL: '',
+    baseURL: 'https://hernanttest1.formed.ai/api/v2',
     responseType: 'json',
 });
 

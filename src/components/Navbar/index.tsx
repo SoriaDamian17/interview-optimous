@@ -16,7 +16,7 @@ const NavBar:React.FC = ():JSX.Element => {
         </NavItem>
         <NavItem>
           <LinkItem to="/" className={splitLocation[1] === '' ? 'active' : ''}>
-            Demo Page
+            Home
           </LinkItem>
         </NavItem>
         <NavItem>
