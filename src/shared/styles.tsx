@@ -1,5 +1,4 @@
 import styled, { createGlobalStyle } from 'styled-components';
-
 import { createTheme } from '@material-ui/core/styles';
 
 export const colors = {
@@ -10,20 +9,27 @@ export const colors = {
   ligtherGrey: 'rgb(238, 238, 238)',
 };
 
+const PRIMARY = {
+  lighter: '#C8FACD',
+  light: '#5BE584',
+  main: '#00AB55',
+  dark: '#007B55',
+  darker: '#005249',
+  contrastText: '#fff',
+};
+const SECONDARY = {
+  lighter: '#D6E4FF',
+  light: '#84A9FF',
+  main: '#3366FF',
+  dark: '#1939B7',
+  darker: '#091A7A',
+  contrastText: '#fff',
+};
+
 export const theme = createTheme({
   palette: {
-    secondary: {
-      light: 'rgb(255, 121, 97)',
-      main: 'rgb(244, 67, 54)',
-      dark: 'rgb(186, 0, 13)',
-      contrastText: 'rgb(255, 255, 255)',
-    },
-    primary: {
-      light: 'rgb(96, 200, 224)',
-      main: 'rgb(24, 144, 255)',
-      dark: 'rgb(23, 123, 217)',
-      contrastText: 'rgb(255, 255, 255)',
-    },
+    primary: { ...PRIMARY },
+    secondary: { ...SECONDARY },
   },
 
   overrides: {
@@ -67,13 +73,33 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
+const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
+    alig-items: center;
+`;
+
+const Subheader = styled(Header)`
+justify-content: start;
+`;
+
 const Title = styled.h1`
     font-family: 'Roboto';
     font-size: 2.5rem;
     font-weight: bold;
 `;
 
+const Subtitle = styled.h2`
+    font-family: 'Roboto';
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 0 1rem 0 0;
+`;
+
 export {
     GlobalStyles,
     Title,
+    Subtitle,
+    Header,
+    Subheader,
 };

@@ -1,15 +1,14 @@
-import { Button as BMT, Paper as PMT } from '@material-ui/core';
+import { Button as BMT, TextField as TMT } from '@material-ui/core';
 import styled from 'styled-components';
 import { colors } from '../../shared/styles';
 
-const Paper = styled(PMT)`
-    margin: 2rem auto;
-    padding: 1rem;
-    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+const TextField = styled(TMT)`
+    width: 100%;
 `;
 
 const Button = styled(BMT)`
     height: 3rem;
+    width: 10rem;
     color:${colors.white}!important;
     background-color:${colors.lightgreen} !important;
     font-weight: bold;
@@ -20,6 +19,6 @@ const Button = styled(BMT)`
 `;
 
 export {
-    Paper,
     Button,
+    TextField,
 };

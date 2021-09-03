@@ -9,7 +9,7 @@ const routes = [
         element: <Home />,
     },
     {
-        path: '/new-datasource',
+        path: 'new-datasource',
         element: <DataSource />,
     },
 ];
