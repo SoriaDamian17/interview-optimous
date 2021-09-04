@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { SnackbarProvider } from 'notistack';
 import { HelmetProvider } from 'react-helmet-async';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import App from './pages/App';
@@ -13,13 +14,21 @@ ReactDOM.render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
       <GlobalStyles />
-      <HelmetProvider>
-        <DataSourceContextProvider>
-          <ConnectionContextProvider>
-            <App />
-          </ConnectionContextProvider>
-        </DataSourceContextProvider>
-      </HelmetProvider>
+      <SnackbarProvider
+        anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+        }}
+        maxSnack={3}
+      >
+        <HelmetProvider>
+          <DataSourceContextProvider>
+            <ConnectionContextProvider>
+              <App />
+            </ConnectionContextProvider>
+          </DataSourceContextProvider>
+        </HelmetProvider>
+      </SnackbarProvider>
     </MuiThemeProvider>
   </React.StrictMode>,
     document.getElementById('root'),

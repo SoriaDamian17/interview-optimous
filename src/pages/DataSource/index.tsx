@@ -1,14 +1,16 @@
-import { Grid, Tooltip } from '@material-ui/core';
+import { DialogActions, Grid, Tooltip } from '@material-ui/core';
 import { useContext, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useSnackbar, VariantType } from 'notistack';
+import { useHistory } from 'react-router';
 import Layout from '../../components/Layout';
 import {
  Header, Subheader, Subtitle, Title,
  Button,
 } from '../../shared/styles';
-import { ButtonSubmit, TextField } from './styles';
+import { ButtonSecundary, ButtonSubmit, TextField } from './styles';
 import DialogUI from '../../components/Dialog';
 import { ConnectionContext, ICContext, IConnection } from '../../context/ConnectionContext';
 import { DataSourceContext, IDContext } from '../../context/DataSourceContext';
@@ -60,6 +62,8 @@ function formatData(rows:IConnection[]) {
 }
 
 const DataSource: React.FC = ():JSX.Element => {
+  const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory();
   const { datasource, setDataSource } = useContext<IDContext>(DataSourceContext);
   const { connections, setConnections } = useContext<ICContext>(ConnectionContext);
   const [open, setOpen] = useState<boolean>(false);
@@ -92,6 +96,9 @@ const DataSource: React.FC = ():JSX.Element => {
     //   console.log(resp);
     // });
     setDataSource((prev) => [...prev, newDataSource]);
+    const variant: VariantType = 'success';
+    enqueueSnackbar('Create DataSource', { variant });
+    history.push('/');
   };
 
   const onSubmitConnection: SubmitHandler<InputsConnection> = (data) => {
@@ -109,6 +116,8 @@ const DataSource: React.FC = ():JSX.Element => {
     // });
     setConnections((prev) => [...prev, newConnect]);
     setOpen(!open);
+    const variant: VariantType = 'success';
+    enqueueSnackbar('Create Connection', { variant });
   };
 
   const handleParameters = () => {
@@ -254,7 +263,7 @@ const DataSource: React.FC = ():JSX.Element => {
       <DialogUI title="Create new connection" open={open} onClose={setOpen}>
         <form autoComplete="off" onSubmit={handleSubmit2(onSubmitConnection)}>
           <Grid container alignItems="center">
-            <Grid item xs={12}>
+            <Grid item xs={12} spacing={3}>
               <TextField
                 fullWidth
                 id="connectionName"
@@ -264,13 +273,15 @@ const DataSource: React.FC = ():JSX.Element => {
                 {...register2('inputConnection', { required: true })}
               />
             </Grid>
-            <Grid item xs={12}>
-              <Button onClick={() => setOpen(!open)} color="primary">
-                Cancel
-              </Button>
-              <Button type="submit">
-                Save
-              </Button>
+            <Grid item xs={12} spacing={3}>
+              <DialogActions>
+                <ButtonSecundary onClick={() => setOpen(!open)}>
+                  Cancel
+                </ButtonSecundary>
+                <Button type="submit">
+                  Save
+                </Button>
+              </DialogActions>
             </Grid>
           </Grid>
         </form>

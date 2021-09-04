@@ -4,6 +4,7 @@ import Layout from '../../components/Layout';
 import { Header, Title, Button } from '../../shared/styles';
 import TableUI from '../../components/Table';
 import { DataSourceContext, IDContext } from '../../context/DataSourceContext';
+// import { ConnectionContext, ICContext } from '../../context/ConnectionContext';
 // import { NexusApi } from '../../service/Nexus';
 
 export interface HomeProps {
@@ -13,21 +14,26 @@ export interface HomeProps {
 const Home: React.FC<HomeProps> = ():JSX.Element => {
   const history = useHistory();
   const { datasource } = useContext<IDContext>(DataSourceContext);
+  // const { connections, setConnections } = useContext<ICContext>(ConnectionContext);
 
   const handleClick = () => {
     history.push('/new-datasource');
   };
 
   useEffect(() => {
-    // async function getData() {
+    // async function getDataSource() {
     //   await NexusApi.get('data-sources?total=false').then((resp) => {
-    //     // const { data }:IDataSource[] = resp;
-    //     // setDataSource(data);
-    //     console.log(resp);
+    //     setDataSource(resp.data.data);
     //   });
     // }
-    // getData();
-  }, [datasource]);
+    // async function getConnections() {
+    //   await NexusApi.get('connections').then((resp) => {
+    //     setConnections(resp.data.data);
+    //   });
+    // }
+    // getDataSource();
+    // getConnections();
+  }, []);
 
  return (
    <Layout title="Data Source">
