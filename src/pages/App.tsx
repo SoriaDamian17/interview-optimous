@@ -9,7 +9,8 @@ const NotFound = React.lazy(() => import('./notFound'));
 AuthApi.post('/auth/token', {
   username: 'dsoria',
   password: 'dsoria123',
-}).then((resp) => console.log(resp));
+}).then((resp) => localStorage.setItem('NXtoken', resp.data.data.token));
+
 const App:React.FC = ():JSX.Element => (
   <Suspense fallback={<Spinner />}>
     <Router>

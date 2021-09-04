@@ -1,11 +1,17 @@
 import React, {
  createContext, useState, useEffect, ReactNode,
 } from 'react';
+import { stubsConnections } from '../utils/mockData';
 
 export interface IConnection {
-    title: string,
-    type: string,
-    connectionData: string,
+    id?: number;
+    title: string;
+    type: string;
+    // eslint-disable-next-line camelcase
+    connection_data: string;
+    system?: boolean;
+    created?: string;
+    modified?: string;
 }
 
 interface ICProvider {
@@ -25,7 +31,7 @@ export const ConnectionContext = createContext<ICContext>(defaultValue);
 
 const ConnectionContextProvider:React.FC<ICProvider> = ({ children }) => {
     // const InitialState: IConnection[] = JSON.parse(localStorage.getItem('connections')) || [];
-    const InitialState: IConnection[] = [];
+    const InitialState: IConnection[] = stubsConnections;
     const [connections, setConnections] = useState<IConnection[]>(InitialState);
 
     useEffect(() => {

@@ -76,8 +76,8 @@ const GlobalStyles = createGlobalStyle`
 
 const Header = styled.div`
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    alig-items: center;
 `;
 
 const Subheader = styled(Header)`
@@ -99,6 +99,8 @@ const Subtitle = styled.h2`
 
 const Button = styled(BMT)`
     height: 3rem;
+    width: 100%;
+    max-width: 10rem;
     color:${colors.white}!important;
     background-color:${colors.lightgreen} !important;
     font-weight: bold;

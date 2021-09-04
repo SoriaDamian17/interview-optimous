@@ -11,7 +11,7 @@ const stubsConnections = [
     },
     {
       id: 2,
-      title: 'string',
+      title: 'Nexxus 2',
       type: 'SQL',
       connection_data: 'Server=serverNameTest;Database=databaseName;UserId=userIdTest;Password=passwordTest;Port=portTest',
       system: false,
@@ -42,7 +42,7 @@ const stubDataSource = [
     },
     {
       id: 2,
-      connection_id: 1,
+      connection_id: 2,
       title: 'Nexus Data Source Groups',
       code: 'groups',
       query: "select * from groups where name LIKE '%@lookup%'",
