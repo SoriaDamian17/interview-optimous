@@ -1,7 +1,6 @@
 import React, {
  createContext, useState, useEffect, ReactNode,
 } from 'react';
-import { stubsConnections } from '../utils/mockData';
 
 export interface IConnection {
     id?: number;
@@ -31,7 +30,7 @@ export const ConnectionContext = createContext<ICContext>(defaultValue);
 
 const ConnectionContextProvider:React.FC<ICProvider> = ({ children }) => {
     // const InitialState: IConnection[] = JSON.parse(localStorage.getItem('connections')) || [];
-    const InitialState: IConnection[] = stubsConnections;
+    const InitialState: IConnection[] = [];
     const [connections, setConnections] = useState<IConnection[]>(InitialState);
 
     useEffect(() => {

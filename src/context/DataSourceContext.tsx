@@ -1,7 +1,6 @@
 import React, {
     createContext, useState, useEffect, ReactNode,
 } from 'react';
-import { stubDataSource } from '../utils/mockData';
 
 export interface IDataParameters {
     id?: number;
@@ -40,7 +39,7 @@ export const DataSourceContext = createContext<IDContext>(defaultValue);
 
 const DataSourceContextProvider:React.FC<ICProvider> = ({ children }) => {
     // const InitialState: IDataSource[] = JSON.parse(localStorage.getItem('datasource')) || [];
-    const InitialState: IDataSource[] = stubDataSource;
+    const InitialState: IDataSource[] = [];
     const [datasource, setDataSource] = useState<IDataSource[]>(InitialState);
 
     useEffect(() => {

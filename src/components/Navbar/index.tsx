@@ -10,12 +10,12 @@ const NavBar:React.FC = ():JSX.Element => {
     <header>
       <Nav>
         <NavItem>
-          <LinkItem to="/">
+          <LinkItem to="/Home">
             <Logo width={30} height={30} />
           </LinkItem>
         </NavItem>
         <NavItem>
-          <LinkItem to="/" className={splitLocation[1] === '' ? 'active' : ''}>
+          <LinkItem to="/Home" className={splitLocation[1] === 'Home' ? 'active' : ''}>
             Home
           </LinkItem>
         </NavItem>
