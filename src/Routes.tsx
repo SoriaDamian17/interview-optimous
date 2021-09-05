@@ -1,13 +1,22 @@
-// import DemoPage from './pages/demo';
-
 import React from 'react';
 
-const DemoPage = React.lazy(() => import('./pages/demo'));
+const Login = React.lazy(() => import('./pages/Login'));
+const Home = React.lazy(() => import('./pages/Home'));
+const DataSource = React.lazy(() => import('./pages/DataSource'));
 
 const routes = [
     {
         path: '/',
-        element: <DemoPage />,
+        element: <Login />,
+    },
+    {
+        path: 'home',
+        element: <Home />,
+    },
+
+    {
+        path: 'new-datasource',
+        element: <DataSource />,
     },
 ];
 
