@@ -1,5 +1,5 @@
 import { DialogActions, Grid, Tooltip } from '@material-ui/core';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -12,9 +12,10 @@ import {
 } from '../../shared/styles';
 import { ButtonSecundary, ButtonSubmit, TextField } from './styles';
 import DialogUI from '../../components/Dialog';
-import { ConnectionContext, ICContext, IConnection } from '../../context/ConnectionContext';
-import { DataSourceContext, IDContext } from '../../context/DataSourceContext';
-import { IBodyConnection, IBodyDataSource } from '../../service/Nexus';
+import { IConnection } from '../../context/ConnectionContext';
+import { IBodyConnection, IBodyDataSource, NexusApi } from '../../service/Nexus';
+import useConnection from '../../hook/useConnection';
+import useDataSource from '../../hook/useDataSource';
 
 interface IOption {
   value: string | number | undefined,
@@ -64,12 +65,12 @@ function formatData(rows:IConnection[]) {
 const DataSource: React.FC = ():JSX.Element => {
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
-  const { datasource, setDataSource } = useContext<IDContext>(DataSourceContext);
-  const { connections, setConnections } = useContext<ICContext>(ConnectionContext);
+  const { setDataSource } = useDataSource();
+  const { connections, setConnections } = useConnection();
   const [open, setOpen] = useState<boolean>(false);
   const [paramType, setParamType] = useState<string>('String');
   const {
-    handleSubmit, register, formState: { errors },
+    handleSubmit, register,
   } = useForm<Inputs>();
   const {
     handleSubmit: handleSubmit2, register: register2,
@@ -92,13 +93,17 @@ const DataSource: React.FC = ():JSX.Element => {
         },
       ],
     };
-    // NexusApi.post('data-sources', newDataSource).then((resp) => {
-    //   console.log(resp);
-    // });
-    setDataSource((prev) => [...prev, newDataSource]);
-    const variant: VariantType = 'success';
-    enqueueSnackbar('Create DataSource', { variant });
-    history.push('/');
+    NexusApi.post('data-sources', newDataSource).then((resp) => {
+      console.log(resp);
+      setDataSource((prev) => [...prev, newDataSource]);
+      const variant: VariantType = 'success';
+      enqueueSnackbar('Create DataSource', { variant });
+      history.push('/Home');
+    }).catch((resp) => {
+      const variant: VariantType = 'error';
+      const message = resp.message.errors ? resp.message.errors : 'Could not create record';
+      enqueueSnackbar(message, { variant });
+    });
   };
 
   const onSubmitConnection: SubmitHandler<InputsConnection> = (data) => {
@@ -109,15 +114,13 @@ const DataSource: React.FC = ():JSX.Element => {
       type: 'SQL',
       connection_data: 'Server=serverNameTest;Database=databaseName;UserId=userIdTest;Password=passwordTest;Port=portTest',
     };
-    // NexusApi.post('connections', newConnect).then((resp) => {
-    //   // const { data }:IDataSource[] = resp;
-    //   // setDataSource(data);
-    //   console.log(resp);
-    // });
-    setConnections((prev) => [...prev, newConnect]);
-    setOpen(!open);
-    const variant: VariantType = 'success';
-    enqueueSnackbar('Create Connection', { variant });
+    NexusApi.post('connections', newConnect).then((resp) => {
+      console.log(resp);
+      setConnections((prev) => [...prev, newConnect]);
+      setOpen(!open);
+      const variant: VariantType = 'success';
+      enqueueSnackbar('Create Connection', { variant });
+    });
   };
 
   const handleParameters = () => {
@@ -131,12 +134,6 @@ const DataSource: React.FC = ():JSX.Element => {
   const handleDelete = () => {
     console.log('delete params');
   };
-
-  useEffect(() => {
-    console.log(datasource);
-    console.log(connections);
-    console.log(errors);
-  }, [connections, datasource]);
 
   return (
     <Layout title="New Data Source">
@@ -172,17 +169,18 @@ const DataSource: React.FC = ():JSX.Element => {
             <TextField
               id="select-connection"
               select
-              label="Type"
+              label="Connection"
               className="select-control"
               value={formatData(connections)}
               SelectProps={{
                 native: true,
               }}
+              InputLabelProps={{ shrink: true }}
               variant="outlined"
               {...register('inputConnectionId')}
             >
               {connections.map((option:IConnection) => (
-                <option key={option.title} value={option.title}>
+                <option key={option.id} value={option.id}>
                   {option.title}
                 </option>
           ))}

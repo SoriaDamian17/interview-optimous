@@ -1,9 +1,10 @@
-import { Table as TM, TableContainer as TCM } from '@material-ui/core';
+import { Table as TM } from '@material-ui/core';
 import styled from 'styled-components';
 
-const TableContainer = styled(TCM)`
-    min-width: 280,
-    overflow-x: 'auto'
+const Scroll = styled.div`
+    min-width: 20rem;
+    max-height: 35rem;
+    // overflow: auto
 `;
 
 const Table = styled(TM)`
@@ -17,7 +18,7 @@ const PaginationController = styled.div`
 `;
 
 export {
-    TableContainer,
+    Scroll,
     Table,
     PaginationController,
 };
