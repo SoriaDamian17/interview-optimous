@@ -43,6 +43,16 @@ coverage/                    test and coverage reports
 $ npm install
 ```
 
+## Docker
+
+
+```
+docker build -f Dockerfile -t optimus .
+docker run -d -p 9000:80 --name optimus optimus
+```
+
+Open your browser at http://localhost:9000/
+
 ## Extras
 - Use of TypeScript is appreciated.
 - We would like to be able to edit the existing Connections and create new ones from the same “New Datasource” page, without the need to navigate to another page and with as few clicks as possible. In the type field of the Connection always use "sql".
