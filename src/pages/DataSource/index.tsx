@@ -102,20 +102,21 @@ const DataSource: React.FC = ():JSX.Element => {
       history.push('/Home');
     }).catch((resp) => {
       const variant: VariantType = 'error';
-      const message = resp.message.errors ? resp.message.errors : 'Could not create record';
+      const message = resp.message.errors ? resp.message.errors[0] : 'Could not create record';
       enqueueSnackbar(message, { variant });
     });
   };
 
-  const onSubmitConnection: SubmitHandler<InputsConnection> = (data) => {
-    const { inputConnection } = data;
+  const onSubmitConnection: SubmitHandler<InputsConnection> = (dataForm) => {
+    const { inputConnection } = dataForm;
     const newConnect:IBodyConnection = {
       title: inputConnection,
       type: 'SQL',
       connection_data: 'Server=serverNameTest;Database=databaseName;UserId=userIdTest;Password=passwordTest;Port=portTest',
     };
-    NexusApi.post('connections', newConnect).then(() => {
-      setConnections((prev) => [...prev, newConnect]);
+    NexusApi.post('connections', newConnect).then((resp) => {
+      const { data } = resp;
+      setConnections((prev) => [...prev, { ...newConnect, id: data.data.id }]);
       setOpen(!open);
       const variant: VariantType = 'success';
       enqueueSnackbar('Create Connection', { variant });
@@ -175,6 +176,9 @@ const DataSource: React.FC = ():JSX.Element => {
               variant="outlined"
               {...register('inputConnectionId')}
             >
+              <option key="default" value="00">
+                Select Connection
+              </option>
               {connections.map((option:IConnection) => (
                 <option key={option.id} value={option.id}>
                   {option.title}
