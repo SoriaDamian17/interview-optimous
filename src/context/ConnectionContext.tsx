@@ -29,7 +29,6 @@ const defaultValue = {
 export const ConnectionContext = createContext<ICContext>(defaultValue);
 
 const ConnectionContextProvider:React.FC<ICProvider> = ({ children }) => {
-    // const InitialState: IConnection[] = JSON.parse(localStorage.getItem('connections')) || [];
     const InitialState: IConnection[] = [];
     const [connections, setConnections] = useState<IConnection[]>(InitialState);
 

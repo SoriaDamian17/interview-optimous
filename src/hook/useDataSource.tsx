@@ -2,7 +2,6 @@ import { useContext, useEffect } from 'react';
 import { DataSourceContext, IDContext } from '../context/DataSourceContext';
 import { NexusApi } from '../service/Nexus';
 
-// const useDataSource:React.FC = () => {
 const useDataSource = () => {
     const { datasource, setDataSource } = useContext<IDContext>(DataSourceContext);
 

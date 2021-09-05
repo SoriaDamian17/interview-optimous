@@ -38,7 +38,6 @@ const defaultValue = {
 export const DataSourceContext = createContext<IDContext>(defaultValue);
 
 const DataSourceContextProvider:React.FC<ICProvider> = ({ children }) => {
-    // const InitialState: IDataSource[] = JSON.parse(localStorage.getItem('datasource')) || [];
     const InitialState: IDataSource[] = [];
     const [datasource, setDataSource] = useState<IDataSource[]>(InitialState);
 

@@ -8,5 +8,5 @@ RUN npm run build
 # the production environment
 FROM nginx:alpine
 
-COPY --from=react-build /app/dist/ /usr/share/nginx/html
+COPY --from=react-build /app/build/ /usr/share/nginx/html
 COPY --from=react-build /app/nginx.conf /etc/nginx/conf.d/default.conf
