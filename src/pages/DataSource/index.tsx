@@ -16,6 +16,7 @@ import { IConnection } from '../../context/ConnectionContext';
 import { IBodyConnection, IBodyDataSource, NexusApi } from '../../service/Nexus';
 import useConnection from '../../hook/useConnection';
 import useDataSource from '../../hook/useDataSource';
+// import ParamsForm from '../../components/ParamsForm';
 
 interface IOption {
   value: string | number | undefined,
@@ -63,10 +64,11 @@ function formatData(rows:IConnection[]) {
 }
 
 const DataSource: React.FC = ():JSX.Element => {
-  const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
   const { setDataSource } = useDataSource();
   const { connections, setConnections } = useConnection();
+  // const [forms, setForm] = useState<JSX.Element[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [paramType, setParamType] = useState<string>('String');
   const {
@@ -93,8 +95,7 @@ const DataSource: React.FC = ():JSX.Element => {
         },
       ],
     };
-    NexusApi.post('data-sources', newDataSource).then((resp) => {
-      console.log(resp);
+    NexusApi.post('data-sources', newDataSource).then(() => {
       setDataSource((prev) => [...prev, newDataSource]);
       const variant: VariantType = 'success';
       enqueueSnackbar('Create DataSource', { variant });
@@ -107,15 +108,13 @@ const DataSource: React.FC = ():JSX.Element => {
   };
 
   const onSubmitConnection: SubmitHandler<InputsConnection> = (data) => {
-    console.log(data);
     const { inputConnection } = data;
     const newConnect:IBodyConnection = {
       title: inputConnection,
       type: 'SQL',
       connection_data: 'Server=serverNameTest;Database=databaseName;UserId=userIdTest;Password=passwordTest;Port=portTest',
     };
-    NexusApi.post('connections', newConnect).then((resp) => {
-      console.log(resp);
+    NexusApi.post('connections', newConnect).then(() => {
       setConnections((prev) => [...prev, newConnect]);
       setOpen(!open);
       const variant: VariantType = 'success';
@@ -124,15 +123,12 @@ const DataSource: React.FC = ():JSX.Element => {
   };
 
   const handleParameters = () => {
-    console.log('parameters');
+    console.log('Create Form Params');
+    // setForm([...forms, <ParamsForm />]);
   };
 
   const handleChange = (ev:any) => {
     setParamType(ev.target.value);
-  };
-
-  const handleDelete = () => {
-    console.log('delete params');
   };
 
   return (
@@ -206,6 +202,7 @@ const DataSource: React.FC = ():JSX.Element => {
               <Button onClick={() => handleParameters()}>Add Parameters</Button>
             </Subheader>
           </Grid>
+          {/* {forms.map((paramForm) => <paramForm />)} */}
           <Grid item xs={4}>
             <TextField
               fullWidth
@@ -248,20 +245,20 @@ const DataSource: React.FC = ():JSX.Element => {
           </Grid>
           <Grid item xs={1}>
             <Tooltip title="Delet Param">
-              <IconButton aria-label="delete" onClick={() => handleDelete()}>
+              <IconButton aria-label="delete" onClick={() => console.log('Remove Param Form')}>
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
           </Grid>
-          <Grid item xs={12} justifyContent="flex-end">
+          <Grid item xs={12}>
             <ButtonSubmit type="submit">Save</ButtonSubmit>
           </Grid>
         </Grid>
       </form>
       <DialogUI title="Create new connection" open={open} onClose={setOpen}>
         <form autoComplete="off" onSubmit={handleSubmit2(onSubmitConnection)}>
-          <Grid container alignItems="center">
-            <Grid item xs={12} spacing={3}>
+          <Grid container spacing={2} justifyContent="space-between" alignItems="center">
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 id="connectionName"
@@ -271,7 +268,7 @@ const DataSource: React.FC = ():JSX.Element => {
                 {...register2('inputConnection', { required: true })}
               />
             </Grid>
-            <Grid item xs={12} spacing={3}>
+            <Grid item xs={12}>
               <DialogActions>
                 <ButtonSecundary onClick={() => setOpen(!open)}>
                   Cancel

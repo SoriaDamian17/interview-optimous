@@ -40,15 +40,15 @@ const Login: React.FC = ():JSX.Element => {
     return (
       <Box>
         <Helmet>
-          <title>Sign In</title>
+          <title>Login</title>
         </Helmet>
         <Container maxWidth="sm">
           <Header>
             <Title>
-              Sign In
+              Login Form
             </Title>
           </Header>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form data-testid="form" onSubmit={handleSubmit(onSubmit)}>
             <Grid
               container
               spacing={3}

@@ -32,7 +32,7 @@ type Inputs = {
     isRequired: string,
 };
 
-const ParamsForm: React.FC = ():JSX.Element => {
+const ParamsForm:React.FC = ():JSX.Element => {
     const [paramType] = useState<string>('String');
     const {
         handleSubmit, register,

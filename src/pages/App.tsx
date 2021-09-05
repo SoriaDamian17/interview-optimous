@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import {
+ Route, BrowserRouter as Router, Switch,
+} from 'react-router-dom';
 import routes from '../Routes';
 
 const Spinner = () => <div className="Spinner" />;

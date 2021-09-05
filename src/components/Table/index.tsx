@@ -51,7 +51,7 @@ const TableUI:React.FC<ITableUI> = ({ rows }) => {
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row:IDataSource) => (
-            <TableRow key={row.title}>
+            <TableRow key={row.id}>
               <TableCell component="th" scope="row">
                 {row.title}
               </TableCell>

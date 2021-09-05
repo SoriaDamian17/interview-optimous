@@ -8,11 +8,11 @@ const useConnection = () => {
     useEffect(() => {
         async function getConnections() {
             await NexusApi.get('connections').then((resp) => {
-            setConnections(resp.data.data);
+                setConnections(resp.data.data);
             });
         }
         getConnections();
-    }, []);
+    }, [setConnections]);
 
     return {
         connections,

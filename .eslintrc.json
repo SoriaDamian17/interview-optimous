@@ -17,7 +17,8 @@
         "test":true,
         "expect": true,
         "jsdom": true,
-        "JSX": true
+        "JSX": true,
+        "jest": true
     },
     "parserOptions": {
         "ecmaFeatures": {
